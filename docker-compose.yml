@@ -1,0 +1,47 @@
+version: '3.8'
+services:
+  db-employee:
+    image: 'mysql'
+    restart: always
+    environment:
+      - MYSQL_DATABASE=employee
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_PASSWORD=root
+    ports:
+      - 3306:3306
+  db-marcas_reloj:
+    image: 'mysql'
+    restart: always
+    environment:
+      - MYSQL_DATABASE=marcas_reloj
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_PASSWORD=root
+    ports:
+      - 3307:3306
+  db-justificative:
+    image: 'mysql'
+    restart: always
+    environment:
+      - MYSQL_DATABASE=justificative
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_PASSWORD=root
+    ports:
+      - 3308:3306
+  db-extra_hours:
+    image: 'mysql'
+    restart: always
+    environment:
+      - MYSQL_DATABASE=extra_hours
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_PASSWORD=root
+    ports:
+      - 3309:3306
+  db-planilla_sueldos:
+    image: 'mysql'
+    restart: always
+    environment:
+      - MYSQL_DATABASE=planilla_sueldos
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_PASSWORD=root
+    ports:
+      - 3310:3306

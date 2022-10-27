@@ -1,0 +1,22 @@
+server:
+  port: 8082
+spring:
+  devtools:
+    restart:
+      aditional-paths: src/main/java
+  application:
+    name: justificative-service
+  cloud:
+    config:
+      enabled: true
+      uri: http://localhost:8081
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${DB_HOSTNAME:localhost}:${DB_PORT:3308}/${DB_NAME:justificative}?autorReconnect=true&allowPublicKeyRetrieval=true&useSSL=false
+    username: ${DB_USR:root}
+    password: ${DB_PSW:root}
+  jpa:
+    show-sql: true
+    hibernate:
+      dialect: MySQL8Dialect
+      ddl-auto: create
