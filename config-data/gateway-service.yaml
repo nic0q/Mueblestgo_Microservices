@@ -20,7 +20,7 @@ spring:
         - id: employee-service
           uri: lb://employee-service
           predicates:
-            - Path=/employee/**
+            - Path=/employees/**
         - id: marcas_reloj-service
           uri: lb://marcas_reloj-service
           predicates:
@@ -28,7 +28,7 @@ spring:
         - id: justificative-service
           uri: lb://justificative-service
           predicates:
-            - Path=/justificative/**
+            - Path=/justificatives/**
         - id: extra_hours-service
           uri: lb://extra_hours-service
           predicates:

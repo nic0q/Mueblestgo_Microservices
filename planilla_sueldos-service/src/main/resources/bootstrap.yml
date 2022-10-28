@@ -1,11 +1,9 @@
-server:
-  port: 8084
 spring:
   devtools:
     restart:
       aditional-paths: src/main/java
   application:
-    name: justificative-service
+    name: planilla_sueldos-service
   cloud:
     config:
       enabled: true
