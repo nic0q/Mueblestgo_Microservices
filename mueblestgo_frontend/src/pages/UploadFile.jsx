@@ -13,8 +13,7 @@ export default function UploadFile() {
     }
     await axios.post('http://localhost:8080/timestamp', formData).then(res => {
       console.log(res);
-    }); 
-  
+    });
   };
   return (
     <div>

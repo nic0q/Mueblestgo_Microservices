@@ -14,11 +14,12 @@ public class MarcasRelojController {
     private MarcasRelojService upload;
     @GetMapping("/hola")
     public String test(){
-        return "TEST";
+        return "TEST 2";
     }
     @PostMapping()
-    public void saveTxt( @RequestParam("archivos") MultipartFile file, RedirectAttributes ms) throws FileNotFoundException, ParseException {
+    public void saveTxt( @RequestParam("files") MultipartFile file, RedirectAttributes ms) throws FileNotFoundException, ParseException {
         System.out.println("Test");
         upload.save(file);
+        upload.readFile();
     }
 }
