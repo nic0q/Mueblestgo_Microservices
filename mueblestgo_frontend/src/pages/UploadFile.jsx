@@ -11,7 +11,7 @@ export default function UploadFile() {
     for(let i = 0; i < file.length; i++) {
       formData.append('files', file[i]);
     }
-    await axios.post('http://localhost:8080/marcas-reloj', formData).then(res => {
+    await axios.post('http://localhost:8080/timestamp', formData).then(res => {
       console.log(res);
     }); 
   

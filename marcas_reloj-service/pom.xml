@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.tingeso</groupId>
-	<artifactId>marcas_reloj-service</artifactId>
+	<artifactId>timestamp-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>marcas_reloj-service</name>
+	<name>timestamp-service</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>

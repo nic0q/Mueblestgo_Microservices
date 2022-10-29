@@ -21,10 +21,10 @@ spring:
           uri: lb://employee-service
           predicates:
             - Path=/employees/**
-        - id: marcas_reloj-service
-          uri: lb://marcas_reloj-service
+        - id: timestamp-service
+          uri: lb://timestamp-service
           predicates:
-            - Path=/marcas-reloj/**
+            - Path=/timestamp/**
         - id: justificative-service
           uri: lb://justificative-service
           predicates:

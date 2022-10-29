@@ -8,12 +8,13 @@ import java.io.FileNotFoundException;
 import java.text.ParseException;
 
 @RestController
-@RequestMapping("/marcas-reloj")
+@RequestMapping("/timestamp")
 public class MarcasRelojController {
     @Autowired
     private MarcasRelojService upload;
     @GetMapping("/hola")
-    public void test(){System.out.println("Test GET");
+    public String test(){
+        return "TEST";
     }
     @PostMapping()
     public void saveTxt( @RequestParam("archivos") MultipartFile file, RedirectAttributes ms) throws FileNotFoundException, ParseException {
