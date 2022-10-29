@@ -17,9 +17,9 @@ export default function UploadFile() {
   };
   return (
     <div>
+      <h5>Selecciona un .txt de nombre DATA.txt</h5>
       <input type="file" className="form-control" name="files" onChange={(e)=>uploadfile(e.target.files)}/>
-      <button className='btn btn-primary' onClick={()=>upload()}>Subir Archivo</button>  
+      <button className='btn btn-primary' onClick={upload}>Subir Archivo</button>  
     </div>
-    
   );
 }

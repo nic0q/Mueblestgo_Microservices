@@ -4,6 +4,7 @@ import Layout from './Layout';
 import { Container } from 'react-bootstrap';
 import Index from './pages/Index';
 import UploadFile from './pages/UploadFile';
+import JustificativeForm from './pages/JustificativeForm';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Index/>} exact/>
           <Route path='/upload' element={<UploadFile/>} exact/>
+          <Route path='/justificatives' element={<JustificativeForm/>} exact/>
         </Routes>
       </Container>
     </Layout>

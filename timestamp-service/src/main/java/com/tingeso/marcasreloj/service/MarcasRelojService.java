@@ -15,6 +15,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
@@ -137,5 +138,8 @@ public class MarcasRelojService {
     } catch (FileNotFoundException e) {
       return false;
     }
+  }
+  public List<MarcasReloj> getAll() {
+    return marcasRelojRepository.findAll();
   }
 }

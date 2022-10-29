@@ -1,6 +1,7 @@
 package com.tingeso.employee.controller;
 
 import com.tingeso.employee.entity.Employee;
+import com.tingeso.employee.entity.Justificative;
 import com.tingeso.employee.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,5 +32,13 @@ public class EmployeeController {
     public ResponseEntity<Employee> save(@RequestBody Employee employee) {
         Employee employeeNew = employeeService.save(employee);
         return ResponseEntity.ok(employeeNew);
+    }
+    @GetMapping("/justificatives/{employeeId}")
+    public ResponseEntity<List<Justificative>> getJustificatives(@PathVariable("employeeId") String employeeId) {
+        Employee employee = employeeService.getEmployeeByRut(employeeId);
+        if(employee == null)
+            return ResponseEntity.notFound().build();
+        List<Justificative> justificatives = employeeService.getJustificatives(employeeId);
+        return ResponseEntity.ok(justificatives);
     }
 }
