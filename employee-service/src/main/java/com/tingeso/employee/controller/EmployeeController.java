@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+
 @RestController
 @RequestMapping("/employees")
 public class EmployeeController {
@@ -14,10 +15,10 @@ public class EmployeeController {
 
     @GetMapping
     public ResponseEntity<List<Employee>> getAll() {
-        List<Employee> pets = employeeService.getAll();
-        if(pets.isEmpty())
+        List<Employee> employees = employeeService.getAll();
+        if(employees.isEmpty())
             return ResponseEntity.noContent().build();
-        return ResponseEntity.ok(pets);
+        return ResponseEntity.ok(employees);
     }
     @GetMapping("/{rut}")
     public ResponseEntity<Employee> getByRut(@PathVariable("rut") String rut) {

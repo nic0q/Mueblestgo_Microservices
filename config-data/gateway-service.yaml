@@ -24,7 +24,7 @@ spring:
         - id: marcas_reloj-service
           uri: lb://marcas_reloj-service
           predicates:
-            - Path=/marcas_reloj/**
+            - Path=/marcas-reloj/**
         - id: justificative-service
           uri: lb://justificative-service
           predicates:
@@ -32,8 +32,8 @@ spring:
         - id: extra_hours-service
           uri: lb://extra_hours-service
           predicates:
-            - Path=/extra_hours/**
+            - Path=/extra-hours/**
         - id: planilla_sueldos-service
           uri: lb://planilla_sueldos-service
           predicates:
-            - Path=/planilla_sueldos/**             
+            - Path=/planilla-sueldos/**             
