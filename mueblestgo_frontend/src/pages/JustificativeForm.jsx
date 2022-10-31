@@ -1,29 +1,50 @@
 import axios from 'axios';
+import { useState } from 'react';
 
 export default function JustificativeForm() {
-  // Here upload the info of justificative form axios post
-  const submit = () =>{
-    console.log('submit');
-    
-    
-    
+  const [inputs, setInputs] = useState({});
 
-    
+  const handleChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    console.log(inputs)
+    setInputs(values => ({...values, [name]: value}))
   }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    axios.post('http://localhost:8080/justificatives', inputs).then(res => {
+      console.log(res);
+    });
+  }
+
   return (
-    <div class="container ">
-      <form class="">
-        <div class="form-group">
-          <label for="exampleInputEmail1">Rut Empleado</label>
-          <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Sin puntos y con guión"/>
-        </div>
-        <div class="form-group">
-          <label>Fecha</label>
-          <input type="date" class="form-control" placeholder='Ingresar Fecha'/>
-        </div>
-        <button type="submit" class="btn btn-primary" onClick={submit}>Submit</button>
-        <br/>
-      </form>
-    </div>
-  );
+    <form onSubmit={handleSubmit} className="container">
+      <div className="form-group">
+        <label>Enter your name:
+        <input 
+          type="text" 
+          name="rut_employee"
+          className="form-control"
+          value={inputs.rut_employee || ""} 
+          placeholder='Sin puntos y con guión'
+          onChange={handleChange}
+        />
+        </label>  
+      </div>
+      <div className='form-group'>
+        <label>Enter your age:
+        <input 
+          type="date" 
+          name="date"
+          className="form-control"
+          value={inputs.date || ""} 
+          onChange={handleChange}
+        />
+        </label>
+      </div>
+      <br></br>
+      <input type="submit" className="btn btn-primary"/>
+    </form>
+  )
 }
