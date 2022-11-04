@@ -17,7 +17,7 @@ import com.tingeso.justificative.service.JustificativeService;
 @RestController
 @RequestMapping("/justificatives")
 public class JustificativeController {
-  @Autowired
+    @Autowired
     JustificativeService justificativeService;
 
     @GetMapping

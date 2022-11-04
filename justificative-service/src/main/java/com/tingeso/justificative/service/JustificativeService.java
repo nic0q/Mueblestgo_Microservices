@@ -11,7 +11,7 @@ import com.tingeso.justificative.repository.JustificativeRepository;
 
 @Service
 public class JustificativeService {
-  @Autowired
+    @Autowired
     JustificativeRepository justificativeRepository;
 
     public List<Justificative> getAll() {
