@@ -21,7 +21,7 @@ public class ExtraHoursService {
   }
 
   public List<ExtraHours> getExtraHoursByRut(String rut) {
-    return extraHoursRepository.getHorasExtraEfectivas(rut);
+    return extraHoursRepository.getExtraHoursByRut(rut);
   }
 
   public ExtraHours save(ExtraHours justificative) {

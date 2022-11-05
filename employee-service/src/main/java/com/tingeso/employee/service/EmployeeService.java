@@ -33,7 +33,7 @@ public class EmployeeService {
         return justificatives;
     }
     public List<ExtraHours> getExtraHours(String employeeId) {
-        List<ExtraHours> extra_hours = restTemplate.getForObject("http://extraHours-service/extra-hours/byemployee/" + employeeId, List.class);
+        List<ExtraHours> extra_hours = restTemplate.getForObject("http://extra-hours-service/extra-hours/byemployee/" + employeeId, List.class);
         return extra_hours;
     }
 }

@@ -1,6 +1,7 @@
 package com.tingeso.employee.controller;
 
 import com.tingeso.employee.entity.Employee;
+import com.tingeso.employee.entity.ExtraHours;
 import com.tingeso.employee.entity.Justificative;
 import com.tingeso.employee.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,5 +41,13 @@ public class EmployeeController {
             return ResponseEntity.notFound().build();
         List<Justificative> justificatives = employeeService.getJustificatives(employeeId);
         return ResponseEntity.ok(justificatives);
+    }
+    @GetMapping("/extra-hours/{employeeId}")
+    public ResponseEntity<List<ExtraHours>> getExtraHours(@PathVariable("employeeId") String employeeId) {
+        Employee employee = employeeService.getEmployeeByRut(employeeId);
+        if(employee == null)
+            return ResponseEntity.notFound().build();
+        List<ExtraHours> extraHours = employeeService.getExtraHours(employeeId);
+        return ResponseEntity.ok(extraHours);
     }
 }

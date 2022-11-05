@@ -1,6 +1,7 @@
 package com.tingeso.extra_hours.repository;
 
 import com.tingeso.extra_hours.entity.ExtraHours;
+import java.sql.Date;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -11,8 +12,17 @@ import org.springframework.stereotype.Repository;
 public interface ExtraHoursRepository
   extends JpaRepository<ExtraHours, Integer> {
   @Query(
-    value = "SELECT eh.id,eh.rut_employee, eh.`date`,eh.n_hours FROM extra_hours AS eh INNER JOIN worked_days AS wd ON (wd.rut_employee = eh.rut_employee AND wd.`date` = eh.`date`) WHERE wd.extra_hours >= eh.n_hours  AND eh.rut_employee = :rut AND wd.rut_employee = :rut",
+    value = "SELECT * FROM extra_hours WHERE rut_employee = :rut AND `date` = :datee",
     nativeQuery = true
   )
-  List<ExtraHours> getHorasExtraEfectivas(@Param("rut") String rut);
+  ExtraHours getExtraHoursByRutDate(
+    @Param("rut") String rut,
+    @Param("datee") Date date
+  );
+
+  @Query(
+    value = "SELECT * FROM extra_hours WHERE rut_employee = :rut",
+    nativeQuery = true
+  )
+  List<ExtraHours> getExtraHoursByRut(@Param("rut") String rut);
 }
