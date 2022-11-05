@@ -2,6 +2,7 @@ package com.tingeso.employee.service;
 
 import com.tingeso.employee.entity.Employee;
 import com.tingeso.employee.entity.Justificative;
+import com.tingeso.employee.entity.ExtraHours;
 import com.tingeso.employee.repository.EmployeeRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -28,7 +29,11 @@ public class EmployeeService {
         return employeeNew;
     }
     public List<Justificative> getJustificatives(String employeeId) {
-        List<Justificative> books = restTemplate.getForObject("http://justificative-service/justificatives/byemployee/" + employeeId, List.class);
-        return books;
+        List<Justificative> justificatives = restTemplate.getForObject("http://justificative-service/justificatives/byemployee/" + employeeId, List.class);
+        return justificatives;
+    }
+    public List<ExtraHours> getExtraHours(String employeeId) {
+        List<ExtraHours> extra_hours = restTemplate.getForObject("http://extraHours-service/extra-hours/byemployee/" + employeeId, List.class);
+        return extra_hours;
     }
 }
