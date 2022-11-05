@@ -37,8 +37,8 @@ public class ExtraHoursController {
   public ResponseEntity<List<ExtraHours>> getByStudentId(
     @PathVariable("employeeId") String employeeId
   ) {
-    List<ExtraHours> books = extraHoursService.getExtraHoursByRut(employeeId);
-    return ResponseEntity.ok(books);
+    List<ExtraHours> extraHours = extraHoursService.getExtraHoursByRut(employeeId);
+    return ResponseEntity.ok(extraHours);
   }
 
   @PostMapping

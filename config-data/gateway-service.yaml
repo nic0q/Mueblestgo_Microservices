@@ -27,11 +27,11 @@ spring:
           uri: lb://justificative-service
           predicates:
             - Path=/justificatives/**
-        - id: extra_hours-service
-          uri: lb://extra_hours-service
+        - id: extra-hours-service
+          uri: lb://extra-hours-service
           predicates:
             - Path=/extra-hours/**
-        - id: planilla_sueldos-service
-          uri: lb://planilla_sueldos-service
+        - id: planilla-sueldos-service
+          uri: lb://planilla-sueldos-service
           predicates:
             - Path=/planilla-sueldos/**             
