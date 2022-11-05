@@ -3,7 +3,7 @@ spring:
     restart:
       aditional-paths: src/main/java
   application:
-    name: extra_hours-service
+    name: extra-hours-service
   cloud:
     config:
       enabled: true
