@@ -37,13 +37,17 @@ public class ExtraHoursController {
   public ResponseEntity<List<ExtraHours>> getByStudentId(
     @PathVariable("employeeId") String employeeId
   ) {
-    List<ExtraHours> extraHours = extraHoursService.getExtraHoursByRut(employeeId);
+    List<ExtraHours> extraHours = extraHoursService.getExtraHoursByRut(
+      employeeId
+    );
     return ResponseEntity.ok(extraHours);
   }
 
   @PostMapping
-  public ResponseEntity<ExtraHours> save(@RequestBody ExtraHours ExtraHours) {
-    ExtraHours JustificativeNew = extraHoursService.save(ExtraHours);
-    return ResponseEntity.ok(JustificativeNew);
+  public ResponseEntity<ExtraHours> save(
+    @RequestBody ExtraHours extraHours
+  ) {
+    ExtraHours extraHoursNew = extraHoursService.save(extraHours);
+    return ResponseEntity.ok(extraHoursNew);
   }
 }

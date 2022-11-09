@@ -13,7 +13,9 @@ export default function JustificativeForm() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.post('http://localhost:8080/justificatives', inputs).then(res => {
+    axios.post('http://localhost:8080/justificatives', {
+    "rut_employee": "20457671-9","date": "2022-02-02"
+  }).then(res => {
       console.log(res);
     });
   }

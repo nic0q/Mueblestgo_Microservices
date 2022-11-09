@@ -1,7 +1,5 @@
-package com.tingeso.marcasreloj.service;
+package com.tingeso.timestamp.service;
 
-import com.tingeso.marcasreloj.entity.MarcasReloj;
-import com.tingeso.marcasreloj.repository.MarcasRelojRepository;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -24,6 +22,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.tingeso.timestamp.entity.MarcasReloj;
+import com.tingeso.timestamp.repository.MarcasRelojRepository;
 
 @Service
 public class MarcasRelojService {

@@ -1,11 +1,12 @@
-package com.tingeso.marcasreloj.repository;
+package com.tingeso.timestamp.repository;
 import java.sql.Date;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.tingeso.marcasreloj.entity.MarcasReloj;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import com.tingeso.timestamp.entity.MarcasReloj;
 
 @Repository
 public interface MarcasRelojRepository extends JpaRepository<MarcasReloj, Integer>{

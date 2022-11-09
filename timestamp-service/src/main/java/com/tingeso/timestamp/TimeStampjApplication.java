@@ -1,4 +1,4 @@
-package com.tingeso.marcasreloj;
+package com.tingeso.timestamp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,10 +9,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
 @EnableEurekaClient
-public class MarcasRelojApplication {
+public class TimeStampjApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MarcasRelojApplication.class, args);
+		SpringApplication.run(TimeStampjApplication.class, args);
 	}
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {

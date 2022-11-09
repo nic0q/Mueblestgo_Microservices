@@ -45,9 +45,9 @@ public class JustificativeController {
 
   @PostMapping
   public ResponseEntity<Justificative> save(
-    @RequestBody Justificative Justificative
+    @RequestBody Justificative justificative
   ) {
-    Justificative JustificativeNew = justificativeService.save(Justificative);
+    Justificative JustificativeNew = justificativeService.save(justificative);
     return ResponseEntity.ok(JustificativeNew);
   }
 }

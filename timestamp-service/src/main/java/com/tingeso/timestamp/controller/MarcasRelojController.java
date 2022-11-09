@@ -1,11 +1,13 @@
-package com.tingeso.marcasreloj.controller;
-import com.tingeso.marcasreloj.service.MarcasRelojService;
+package com.tingeso.timestamp.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.tingeso.marcasreloj.entity.MarcasReloj;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.tingeso.timestamp.entity.MarcasReloj;
+import com.tingeso.timestamp.service.MarcasRelojService;
+
 import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.util.List;

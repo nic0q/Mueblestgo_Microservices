@@ -1,4 +1,4 @@
-package com.tingeso.marcasreloj.entity;
+package com.tingeso.timestamp.entity;
 
 import java.sql.Date;
 

@@ -13,7 +13,7 @@ export default function JustificativeForm() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.post('http://localhost:8080/justificatives', inputs).then(res => {
+    axios.post('http://localhost:8080/extra-hours', inputs).then(res => {
       console.log(res);
     });
   }
@@ -39,6 +39,17 @@ export default function JustificativeForm() {
           name="date"
           className="form-control"
           value={inputs.date || ""} 
+          onChange={handleChange}
+        />
+        </label>
+      </div>
+      <div className='form-group'>
+        <label>Ingrese la fecha:
+        <input 
+          type="text" 
+          name="n_hours"
+          className="form-control"
+          value={inputs.n_hours || ""} 
           onChange={handleChange}
         />
         </label>
