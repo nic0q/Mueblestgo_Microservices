@@ -1,4 +1,4 @@
-package com.tingeso.planilla_sueldos.entity;
+package com.tingeso.officeRRHH.entity;
 
 import java.sql.Date;
 

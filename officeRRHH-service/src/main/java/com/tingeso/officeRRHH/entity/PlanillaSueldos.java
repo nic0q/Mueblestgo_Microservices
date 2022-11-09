@@ -1,4 +1,5 @@
-package com.tingeso.planilla_sueldos.entity;
+package com.tingeso.officeRRHH.entity;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

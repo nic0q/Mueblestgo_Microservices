@@ -27,11 +27,11 @@ public class EmployeeService {
     public Employee save(Employee employee) {
         Employee employeeNew = employeeRepository.save(employee);
         return employeeNew;
-    }
+    }@SuppressWarnings("unchecked")
     public List<Justificative> getJustificatives(String employeeId) {
         List<Justificative> justificatives = restTemplate.getForObject("http://justificative-service/justificatives/byemployee/" + employeeId, List.class);
         return justificatives;
-    }
+    }@SuppressWarnings("unchecked")
     public List<ExtraHours> getExtraHours(String employeeId) {
         List<ExtraHours> extra_hours = restTemplate.getForObject("http://extra-hours-service/extra-hours/byemployee/" + employeeId, List.class);
         return extra_hours;

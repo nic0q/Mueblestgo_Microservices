@@ -9,10 +9,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
 @EnableEurekaClient
-public class TimeStampjApplication {
+public class TimeStampApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TimeStampjApplication.class, args);
+		SpringApplication.run(TimeStampApplication.class, args);
 	}
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {
