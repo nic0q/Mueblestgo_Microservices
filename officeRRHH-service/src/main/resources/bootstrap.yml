@@ -3,7 +3,7 @@ spring:
     restart:
       aditional-paths: src/main/java
   application:
-    name: planilla-sueldos-service
+    name: officeRRHH-service
   cloud:
     config:
       enabled: true
