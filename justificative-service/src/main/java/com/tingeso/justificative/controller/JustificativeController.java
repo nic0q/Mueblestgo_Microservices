@@ -2,6 +2,8 @@ package com.tingeso.justificative.controller;
 
 import com.tingeso.justificative.entity.Justificative;
 import com.tingeso.justificative.service.JustificativeService;
+
+import java.text.ParseException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -33,14 +35,12 @@ public class JustificativeController {
     return ResponseEntity.ok(Justificative);
   }
 
-  @GetMapping("/byemployee/{employeeId}")
-  public ResponseEntity<List<Justificative>> getByStudentId(
-    @PathVariable("employeeId") String employeeId
-  ) {
-    List<Justificative> books = justificativeService.getJustificativeByRut(
-      employeeId
-    );
-    return ResponseEntity.ok(books);
+  @GetMapping("/byemployee/{rut}/{date}")
+  public ResponseEntity<Justificative> getByRut(
+    @PathVariable("rut") String rut, @PathVariable("date") String date
+  ) throws ParseException {
+    Justificative justificatives = justificativeService.getJustificativeByRut(rut,date);
+    return ResponseEntity.ok(justificatives);
   }
 
   @PostMapping

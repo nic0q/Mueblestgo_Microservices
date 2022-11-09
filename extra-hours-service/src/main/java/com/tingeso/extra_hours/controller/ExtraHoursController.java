@@ -33,12 +33,12 @@ public class ExtraHoursController {
     return ResponseEntity.ok(ExtraHours);
   }
 
-  @GetMapping("/byemployee/{employeeId}")
+  @GetMapping("/byemployee/{rut}")
   public ResponseEntity<List<ExtraHours>> getByStudentId(
-    @PathVariable("employeeId") String employeeId
+    @PathVariable("rut") String rut
   ) {
     List<ExtraHours> extraHours = extraHoursService.getExtraHoursByRut(
-      employeeId
+      rut
     );
     return ResponseEntity.ok(extraHours);
   }

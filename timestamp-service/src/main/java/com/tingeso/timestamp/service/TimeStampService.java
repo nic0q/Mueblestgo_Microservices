@@ -24,20 +24,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.tingeso.timestamp.entity.MarcasReloj;
-import com.tingeso.timestamp.repository.MarcasRelojRepository;
+import com.tingeso.timestamp.repository.TimeStampRepository;
 
 @Service
-public class MarcasRelojService {
+public class TimeStampService {
 
   @Autowired
-  private MarcasRelojRepository marcasRelojRepository;
+  private TimeStampRepository timeStampRepository;
 
   private static final String ENTRY_TIME = "08:00";
   private static final String EXIT_TIME = "18:00";
   private static final String NOMBRE_TXT = "DATA.txt";
   private static final DateFormat hours_mins = new SimpleDateFormat("hh:mm");
 
-  private final Logger logg = LoggerFactory.getLogger(MarcasRelojService.class);
+  private final Logger logg = LoggerFactory.getLogger(TimeStampService.class);
 
   public String save(MultipartFile file) {
     if (!file.isEmpty()) {
@@ -52,13 +52,19 @@ public class MarcasRelojService {
     }
     return "Archivo guardado correctamente";
   }
-
-  public Date convertir_fecha(String fecha) throws ParseException {
+  public Date get_start_date(){
+    return timeStampRepository.getDate();
+  }
+  public Date convertir_fecha_url(String fecha) throws ParseException {
+    SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+    java.util.Date date = sdf1.parse(fecha);
+    return new java.sql.Date(date.getTime());
+  }
+  public Date convertir_fecha_txt(String fecha) throws ParseException {
     SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy/MM/dd");
     java.util.Date date = sdf1.parse(fecha);
     return new java.sql.Date(date.getTime());
   }
-
   public void insert_worked_day(
     String rut_empleado,
     String fecha,
@@ -68,11 +74,15 @@ public class MarcasRelojService {
     throws ParseException {
     MarcasReloj marcasReloj = new MarcasReloj(
       rut_empleado,
-      convertir_fecha(fecha),
+      convertir_fecha_txt(fecha),
       horas_extra,
       minutos_tarde
     );
-    marcasRelojRepository.save(marcasReloj);
+    timeStampRepository.save(marcasReloj);
+  }
+
+  public MarcasReloj get_dia_trabajado(String rut_empleado, String date) throws ParseException {
+    return timeStampRepository.getWorkedDay(rut_empleado, convertir_fecha_url(date));
   }
 
   public int getLateMinutes(String entry_t) throws ParseException {
@@ -141,6 +151,6 @@ public class MarcasRelojService {
     }
   }
   public List<MarcasReloj> getAll() {
-    return marcasRelojRepository.findAll();
+    return timeStampRepository.findAll();
   }
 }

@@ -6,17 +6,18 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tingeso.timestamp.entity.MarcasReloj;
-import com.tingeso.timestamp.service.MarcasRelojService;
+import com.tingeso.timestamp.service.TimeStampService;
 
 import java.io.FileNotFoundException;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 
 @RestController
 @RequestMapping("/timestamp")
-public class MarcasRelojController {
+public class TimeStampController {
     @Autowired
-    private MarcasRelojService timestampService;
+    private TimeStampService timestampService;
 
     @GetMapping
     public ResponseEntity<List<MarcasReloj>> getAll() {
@@ -25,12 +26,19 @@ public class MarcasRelojController {
             return ResponseEntity.noContent().build();
         return ResponseEntity.ok(timestamps);
     }
-    @GetMapping("/hola")
-    public String test(){
-        return "TEST 2";
+    @GetMapping("/byemployee/{rut}/{date}")
+    public ResponseEntity<MarcasReloj> getByEmployee(@PathVariable("rut") String rut, @PathVariable("date") String date) throws ParseException {
+        MarcasReloj timestamps = timestampService.get_dia_trabajado(rut, date);
+        if(timestamps == null)
+            return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(timestamps);
+    }
+    @GetMapping("/date")
+    public Date getDate() {
+        return timestampService.get_start_date();
     }
     @PostMapping()
-    public void saveTxt(@RequestParam("files") MultipartFile file, RedirectAttributes ms) throws FileNotFoundException, ParseException {
+    public void saveTxt(@RequestParam("file") MultipartFile file, RedirectAttributes ms) throws FileNotFoundException, ParseException {
         System.out.println("Test");
         timestampService.save(file);
         timestampService.readFile();

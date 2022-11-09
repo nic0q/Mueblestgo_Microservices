@@ -1,13 +1,19 @@
 package com.tingeso.officeRRHH.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.CollectionType;
 import com.tingeso.officeRRHH.entity.Employee;
 import com.tingeso.officeRRHH.entity.ExtraHours;
 import com.tingeso.officeRRHH.entity.Justificative;
 import com.tingeso.officeRRHH.entity.TimeStamp;
+
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +42,9 @@ public class OfficeRRHHService {
   private DateFormat dateFormaty = new SimpleDateFormat("yyyy/MM/dd");
   private DateFormat dateFormatSQL = new SimpleDateFormat("yyyy-MM-dd");
 
+  @Autowired
+  ObjectMapper objectMapper;
+  
   @Autowired
   RestTemplate restTemplate;
 
@@ -125,52 +134,83 @@ public class OfficeRRHHService {
   public boolean notGoToWork(TimeStamp dia) {
     return (dia == null || dia.getLate_minutes() > 70);
   }
-
-  public Employee getEmployeeByRut(String rut) {
-    Employee pets = restTemplate.getForObject("http://employee-service/employees/" + rut,Employee.class);
-    return pets;
+  public Date get_start_date() throws ParseException {
+    Date date = restTemplate.getForObject("http://timestamp-service/timestamp/date", Date.class);
+    
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+    System.out.println(sdf.format(date));
+    return date;
   }
-  //public double calcular_descuentos(String rut_empleado) throws ParseException{
-  //  double sueldo_base = get_sueldo_base(getEmployeeByRut(rut_empleado).getCategory());
-  //  double descuentos = 0;
-  //  Calendar c = Calendar.getInstance(); // creo el calendario
-  //  c.setTime(workedDaysService.obtener_fecha_inicio()); // seteo a la fecha actual
-  //  for (int d = 1; d <= c.getActualMaximum(Calendar.DAY_OF_MONTH); d++) {
-  //    c.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH), d);
-  //    if(!laboralDay(c.get(Calendar.DAY_OF_WEEK))) {
-  //      continue;
-  //    }
-  //    TimeStamp day = workedDaysService.get_dia_trabajado(rut_empleado, dateFormaty.format(c.getTime()));
-  //    if(notGoToWork(day)){
-  //      if(justificativeService.searchJustificative(rut_empleado, dateFormaty.format(c.getTime())) == null){ // no tiene justificativo
-  //        descuentos += sueldo_base * DESCUENTO_INASISTENCIA;
-  //      }
-  //    }
-  //    else{
-  //      descuentos += descuentos_tardanza(day.getLate_minutes(), sueldo_base);
-  //    }
-  //  }
-  //  return descuentos;
-  //}
-  //public double calcular_sueldo_bruto(String rut_empleado) throws ParseException{
-  //  Employee empleado = employeeService.getEmployeeByRut(rut_empleado);
-  //  String categoria = empleado.getCategory();
-  //  String entry_date = empleado.getEntry_date();
-  //  double sueldo_base = get_sueldo_base(categoria);
-  //  int anios_servicio = calcular_anios_servicio(entry_date);
-  //  double sueldo = ( sueldo_base + calcular_bonificaciones(anios_servicio , sueldo_base) + calcular_sueldo_horas_extra(categoria, extraHoursService.get_extra_hours_efectivas(rut_empleado)) - calcular_descuentos(rut_empleado));
-  //  if(sueldo < 0){
-  //    return 0;
-  //  }
-  //  return (Math.round(sueldo*100.0)/100.0);
-  //}
-  // public double calcular_cotizacion_salud(double sueldo_bruto){
-  //   return (Math.round((sueldo_bruto * COTIZACION_SALUD)*100.0)/100.0);
-  // }
-  // public double calcular_cotizacion_previsional(double sueldo_bruto){
-  //   return (Math.round((sueldo_bruto * COTIZACION_PREVISIONAL)*100.0)/100.0);
-  // }
-  // public double calcular_sueldo_final(double sueldo_bruto){
-  //   return sueldo_bruto - calcular_cotizacion_salud(sueldo_bruto) - calcular_cotizacion_previsional(sueldo_bruto);
-  // }
+  public Employee getEmployeeByRut(String rut_empleado) {
+    Employee employee = restTemplate.getForObject("http://employee-service/employees/" + rut_empleado,Employee.class);
+    System.out.println(employee);
+    return employee;
+  }
+  public TimeStamp get_dia_trabajado(String rut, String date){
+    TimeStamp timeStamp = restTemplate.getForObject("http://timestamp-service/timestamp/byemployee/" + rut +"/"+ date,TimeStamp.class);
+    System.out.println(timeStamp);
+    return timeStamp;
+  }
+  public static <T> List<T> jsonArrayToList(String json, Class<T> elementClass) throws IOException {
+    ObjectMapper objectMapper = new ObjectMapper();
+    CollectionType listType = objectMapper.getTypeFactory().constructCollectionType(ArrayList.class, elementClass);
+    return objectMapper.readValue(json, listType);
+  }
+  public List<ExtraHours> get_extra_hours(String rut) throws IOException{
+     List<ExtraHours> extra_hours = jsonArrayToList(restTemplate.getForObject("http://extra-hours-service/extra-hours/byemployee/" + rut,String.class), ExtraHours.class);
+    return extra_hours;
+  }
+  public Justificative get_justificative(String rut, String date){
+    Justificative justificatives = restTemplate.getForObject("http://justificative-service/justificatives/byemployee/" + rut +"/"+ date, Justificative.class);
+    System.out.println(justificatives);
+    return justificatives;
+  }
+  public double calcular_descuentos(String rut_empleado) throws ParseException{
+    double sueldo_base = get_sueldo_base(getEmployeeByRut(rut_empleado).getCategory());
+    double descuentos = 0;
+    Calendar c = Calendar.getInstance(); // creo el calendario
+    c.setTime(get_start_date()); // seteo a la fecha actual
+    c.add(Calendar.DATE, 1); // le sumo un dia
+    for (int d = 1; d <= c.getActualMaximum(Calendar.DAY_OF_MONTH); d++) {
+      c.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH), d);
+      if(!laboralDay(c.get(Calendar.DAY_OF_WEEK))) {
+        continue;
+      }
+      System.out.println(dateFormatSQL.format(c.getTime()));
+      TimeStamp day = get_dia_trabajado(rut_empleado, dateFormatSQL.format(c.getTime()));
+      System.out.println("DIA");
+      System.out.println(day);
+      if(notGoToWork(day)){
+        if(get_justificative(rut_empleado, dateFormatSQL.format(c.getTime())) == null){ // no tiene justificativo
+          descuentos += sueldo_base * DESCUENTO_INASISTENCIA;
+        }
+      }
+      else{
+        descuentos += descuentos_tardanza(day.getLate_minutes(), sueldo_base);
+      }
+    }
+    return descuentos;
+  }
+  public double calcular_sueldo_bruto(String rut_empleado) throws ParseException, IOException{
+    Employee empleado = getEmployeeByRut(rut_empleado);
+    String categoria = empleado.getCategory();
+    String entry_date = empleado.getEntry_date();
+    double sueldo_base = get_sueldo_base(categoria);
+    int anios_servicio = calcular_anios_servicio(entry_date);
+    double sueldo = ( sueldo_base + calcular_bonificaciones(anios_servicio , sueldo_base) + calcular_sueldo_horas_extra(categoria, get_extra_hours(rut_empleado)) - calcular_descuentos(rut_empleado));
+    System.out.println(sueldo);
+    if(sueldo < 0){
+      return 0;
+    }
+    return (Math.round(sueldo*100.0)/100.0);
+  }
+  public double calcular_cotizacion_salud(double sueldo_bruto){
+    return (Math.round((sueldo_bruto * COTIZACION_SALUD)*100.0)/100.0);
+  }
+  public double calcular_cotizacion_previsional(double sueldo_bruto){
+    return (Math.round((sueldo_bruto * COTIZACION_PREVISIONAL)*100.0)/100.0);
+  }
+  public double calcular_sueldo_final(double sueldo_bruto){
+    return sueldo_bruto - calcular_cotizacion_salud(sueldo_bruto) - calcular_cotizacion_previsional(sueldo_bruto);
+  }
 }

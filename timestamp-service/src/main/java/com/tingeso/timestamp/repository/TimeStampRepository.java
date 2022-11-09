@@ -9,9 +9,9 @@ import org.springframework.stereotype.Repository;
 import com.tingeso.timestamp.entity.MarcasReloj;
 
 @Repository
-public interface MarcasRelojRepository extends JpaRepository<MarcasReloj, Integer>{
-    @Query(value="SELECT `date` FROM worked_days LIMIT 1;", nativeQuery=true)
+public interface TimeStampRepository extends JpaRepository<MarcasReloj, Integer>{
+    @Query(value="SELECT `date` FROM marcas_reloj LIMIT 1;", nativeQuery=true)
     Date getDate();
-    @Query(value="SELECT * FROM worked_days WHERE rut_employee = :rut AND `date` = :datee", nativeQuery=true)
+    @Query(value="SELECT * FROM marcas_reloj WHERE rut_employee = :rut AND `date` = :datee", nativeQuery=true)
     MarcasReloj getWorkedDay(@Param("rut")String rut,@Param("datee") Date date);
 }
