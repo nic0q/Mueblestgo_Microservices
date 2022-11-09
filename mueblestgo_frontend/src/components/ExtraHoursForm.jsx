@@ -44,7 +44,7 @@ export default function JustificativeForm() {
         </label>
       </div>
       <div className='form-group'>
-        <label>Ingrese la fecha:
+        <label>Ingrese el número de horas:
         <input 
           type="text" 
           name="n_hours"
