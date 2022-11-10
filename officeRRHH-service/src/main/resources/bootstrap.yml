@@ -17,4 +17,4 @@ spring:
     show-sql: true
     hibernate:
       dialect: MySQL8Dialect
-      ddl-auto: create
+      ddl-auto: update
