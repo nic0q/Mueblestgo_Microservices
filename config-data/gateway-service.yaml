@@ -43,7 +43,11 @@ spring:
         - id: officeRRHH-service
           uri: lb://officeRRHH-service
           predicates:
-            - Path=/salaries/**
+            - Path=/officeRRHH/**
+        - id: salarie-service
+          uri: lb://salarie-service
+          predicates:
+            - Path=/salaries/**            
         - id: user-service
           uri: lb://user-service
           predicates:

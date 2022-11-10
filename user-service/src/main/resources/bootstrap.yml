@@ -10,7 +10,7 @@ spring:
       uri: http://localhost:8081
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${DB_HOSTNAME:localhost}:${DB_PORT:3307}/${DB_NAME:user}?autorReconnect=true&allowPublicKeyRetrieval=true&useSSL=false
+    url: jdbc:mysql://${DB_HOSTNAME:localhost}:${DB_PORT:3311}/${DB_NAME:user}?autorReconnect=true&allowPublicKeyRetrieval=true&useSSL=false
     username: ${DB_USR:root}
     password: ${DB_PSW:root}
   jpa:

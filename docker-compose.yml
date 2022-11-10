@@ -46,11 +46,11 @@ services:
     ports:
       - 3310:3306
   db-user:
-      image: 'mysql'
-      restart: always
-      environment:
-        - MYSQL_DATABASE=user
-        - MYSQL_ROOT_PASSWORD=root
-        - MYSQL_PASSWORD=root
-      ports:
-        - 3311:3306
+    image: 'mysql'
+    restart: always
+    environment:
+      - MYSQL_DATABASE=user
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_PASSWORD=root
+    ports:
+      - 3311:3306

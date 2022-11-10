@@ -1,0 +1,3 @@
+INSERT INTO user(`user_name`, `password`, `role`) VALUES("rhaenyra","$2a$12$IbSl.vqiiu1lziizEKi42O3UknGe7RayAY2E3tfq9htiKOBejZnLG", "ADMIN");
+INSERT INTO user(`user_name`, `password`, `role`) VALUES("daemon","$2a$12$SjDnG.Z7a9.3Di2O9RqVEefdJpFWw24zaALO1xhLtv.BZB8Fj8Nxe", "ADMIN");
+INSERT INTO user(`user_name`, `password`, `role`) VALUES("viserys","$2a$12$np6n1PtacsKoA5vEQ9x.8ed0zNgnTKyrTw0CTsSEIlG5A.MocpI8e", "ADMIN");

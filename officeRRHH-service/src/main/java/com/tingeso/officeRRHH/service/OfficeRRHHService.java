@@ -144,40 +144,48 @@ public class OfficeRRHHService {
   public boolean notGoToWork(TimeStamp dia) {
     return (dia == null || dia.getLate_minutes() > 70);
   }
+
   public Date get_start_date() throws ParseException {
     Date date = restTemplate.getForObject("http://timestamp-service/timestamps/date", Date.class);
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
     System.out.println(sdf.format(date));
     return date;
   }
+
   public Employee getEmployeeByRut(String rut_empleado) {
     Employee employee = restTemplate.getForObject("http://employee-service/employees/" + rut_empleado,Employee.class);
     System.out.println(employee);
     return employee;
   }
+
   public List<Employee> getEmployees() throws RestClientException, IOException{
     List<Employee> employees = jsonArrayToList(restTemplate.getForObject("http://employee-service/employees/", String.class), Employee.class);
     return employees;
   }
+
   public TimeStamp get_dia_trabajado(String rut, String date){
     TimeStamp timeStamp = restTemplate.getForObject("http://timestamp-service/timestamps/byemployee/" + rut +"/"+ date,TimeStamp.class);
     System.out.println(timeStamp);
     return timeStamp;
   }
+
   public static <T> List<T> jsonArrayToList(String json, Class<T> elementClass) throws IOException {
     ObjectMapper objectMapper = new ObjectMapper();
     CollectionType listType = objectMapper.getTypeFactory().constructCollectionType(ArrayList.class, elementClass);
     return objectMapper.readValue(json, listType);
   }
+
   public List<ExtraHours> get_extra_hours(String rut) throws IOException{
     List<ExtraHours> extra_hours = jsonArrayToList(restTemplate.getForObject("http://extra-hours-service/extra-hours/byemployee/" + rut,String.class), ExtraHours.class);
     return extra_hours;
   }
+
   public Justificative get_justificative(String rut, String date){
     Justificative justificatives = restTemplate.getForObject("http://justificative-service/justificatives/byemployee/" + rut +"/"+ date, Justificative.class);
     System.out.println(justificatives);
     return justificatives;
   }
+
   public double calcular_descuentos(String rut_empleado) throws ParseException{
     double sueldo_base = get_sueldo_base(getEmployeeByRut(rut_empleado).getCategory());
     double descuentos = 0;
@@ -204,6 +212,7 @@ public class OfficeRRHHService {
     }
     return descuentos;
   }
+
   public double calcular_sueldo_bruto(String rut_empleado) throws ParseException, IOException{
     Employee empleado = getEmployeeByRut(rut_empleado);
     String categoria = empleado.getCategory();
@@ -217,18 +226,23 @@ public class OfficeRRHHService {
     }
     return (Math.round(sueldo*100.0)/100.0);
   }
+
   public double calcular_cotizacion_salud(double sueldo_bruto){
     return (Math.round((sueldo_bruto * COTIZACION_SALUD)*100.0)/100.0);
   }
+
   public double calcular_cotizacion_previsional(double sueldo_bruto){
     return (Math.round((sueldo_bruto * COTIZACION_PREVISIONAL)*100.0)/100.0);
   }
+
   public double calcular_sueldo_final(double sueldo_bruto){
     return sueldo_bruto - calcular_cotizacion_salud(sueldo_bruto) - calcular_cotizacion_previsional(sueldo_bruto);
   }
+
   public Salarie getSalariebyRut(String rut){
     return officeRRHHRepository.getSalarie(rut);
   }
+
   public Salarie get_salarie(String rut_empleado) throws ParseException, IOException{
     Salarie salarie = new Salarie();
     salarie.setRut_empleado(rut_empleado);
@@ -247,7 +261,7 @@ public class OfficeRRHHService {
     officeRRHHRepository.save(salarie);
     return salarie;
   }
-  // calculate all salaries from all employees with map
+
   public List<Salarie> get_salaries() throws RestClientException, IOException{
     List<Salarie> salaries = new ArrayList<Salarie>();
     List<Employee> employees = getEmployees();
