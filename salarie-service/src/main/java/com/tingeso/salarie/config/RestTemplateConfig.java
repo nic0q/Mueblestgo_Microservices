@@ -1,4 +1,4 @@
-package com.tingeso.salaries.config;
+package com.tingeso.salarie.config;
 
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;

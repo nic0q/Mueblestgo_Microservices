@@ -34,7 +34,7 @@ public class SalarieService {
   }
 
   public List<Salarie> getAll() throws IOException{
-    List<Salarie> salaries = jsonArrayToList(restTemplate.getForObject("http://officeRRHH-service/salaries",String.class), Salarie.class);
+    List<Salarie> salaries = jsonArrayToList(restTemplate.getForObject("http://officeRRHH-service/officeRRHH",String.class), Salarie.class);
     return salaries;
   }
 

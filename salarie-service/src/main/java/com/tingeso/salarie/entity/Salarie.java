@@ -1,12 +1,6 @@
 package com.tingeso.salarie.entity;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -15,14 +9,8 @@ import lombok.Setter;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "salarie")
-@Data
 public class Salarie {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
-    private Integer id;
+    private @Getter @Setter int id;
     private @Getter @Setter String rut_empleado;
     private @Getter @Setter String nombre_empleado;
     private @Getter @Setter String apellido_empleado;
