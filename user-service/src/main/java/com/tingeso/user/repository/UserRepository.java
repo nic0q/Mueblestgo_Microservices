@@ -1,17 +1,11 @@
-package com.tingeso.timestamp.repository;
+package com.tingeso.user.repository;
 import java.sql.Date;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.tingeso.timestamp.entity.Timestamp;
+import com.tingeso.user.entity.User;
 
 @Repository
-public interface TimestampRepository extends JpaRepository<Timestamp, Integer>{
-    @Query(value="SELECT `date` FROM timestamp LIMIT 1;", nativeQuery=true)
-    Date getDate();
-    @Query(value="SELECT * FROM timestamp WHERE rut_employee = :rut AND `date` = :datee", nativeQuery=true)
-    Timestamp getWorkedDay(@Param("rut")String rut,@Param("datee") Date date);
+public interface UserRepository extends JpaRepository<User, Integer>{
 }

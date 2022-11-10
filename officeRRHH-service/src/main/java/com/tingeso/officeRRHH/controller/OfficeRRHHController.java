@@ -4,6 +4,7 @@ import com.tingeso.officeRRHH.entity.Employee;
 import com.tingeso.officeRRHH.entity.ExtraHours;
 import com.tingeso.officeRRHH.entity.Justificative;
 import com.tingeso.officeRRHH.entity.TimeStamp;
+import com.tingeso.officeRRHH.entity.Salarie;
 import com.tingeso.officeRRHH.service.OfficeRRHHService;
 
 import java.io.IOException;
@@ -23,6 +24,13 @@ public class OfficeRRHHController {
 
   @Autowired
   OfficeRRHHService officeRRHHService;
+
+  @GetMapping
+  public ResponseEntity<List<Salarie>> getAll() {
+    List<Salarie> Salarie = officeRRHHService.getAll();
+    if (Salarie.isEmpty()) return ResponseEntity.noContent().build();
+    return ResponseEntity.ok(Salarie);
+  }
 
   @GetMapping("/employees/{rut}")
   public ResponseEntity <Employee> getEmployee(@PathVariable("rut") String rut) {
@@ -52,8 +60,20 @@ public class OfficeRRHHController {
   public Date getDate() throws ParseException {
     return officeRRHHService.get_start_date();
   }
-  @GetMapping("/test")
-  public void test() throws ParseException, IOException{
-    officeRRHHService.calcular_sueldo_bruto("20457671-9");
+  @GetMapping("/calcular")
+  public ResponseEntity <List<Salarie>> getSalaries() throws ParseException, IOException {
+    return ResponseEntity.ok(officeRRHHService.get_salaries());
+  }
+  @GetMapping("/calcular/{rut}")
+  public ResponseEntity <Salarie> getSalarie(@PathVariable("rut") String rut) throws ParseException, IOException {
+    Salarie salarie = officeRRHHService.get_salarie(rut);
+    if(salarie == null) return ResponseEntity.notFound().build();
+    return ResponseEntity.ok(salarie);
+  }
+  @GetMapping("/{rut}")
+  public ResponseEntity<Salarie> getByRut(@PathVariable("rut") String rut) {
+    Salarie salarie = officeRRHHService.getSalariebyRut(rut);
+    if (salarie == null) return ResponseEntity.notFound().build();
+    return ResponseEntity.ok(salarie);
   }
 }
