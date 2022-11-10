@@ -16,9 +16,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "planilla_sueldos")
+@Table(name = "salarie")
 @Data
-public class PlanillaSueldos {
+public class Salarie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)

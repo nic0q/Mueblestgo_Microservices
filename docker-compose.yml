@@ -9,11 +9,11 @@ services:
       - MYSQL_PASSWORD=root
     ports:
       - 3306:3306
-  db-marcas_reloj:
+  db-timestamp:
     image: 'mysql'
     restart: always
     environment:
-      - MYSQL_DATABASE=marcas_reloj
+      - MYSQL_DATABASE=timestamp
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_PASSWORD=root
     ports:
@@ -36,12 +36,21 @@ services:
       - MYSQL_PASSWORD=root
     ports:
       - 3309:3306
-  db-planilla_sueldos:
+  db-salarie:
     image: 'mysql'
     restart: always
     environment:
-      - MYSQL_DATABASE=planilla_sueldos
+      - MYSQL_DATABASE=salarie
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_PASSWORD=root
     ports:
       - 3310:3306
+  db-user:
+      image: 'mysql'
+      restart: always
+      environment:
+        - MYSQL_DATABASE=user
+        - MYSQL_ROOT_PASSWORD=root
+        - MYSQL_PASSWORD=root
+      ports:
+        - 3311:3306

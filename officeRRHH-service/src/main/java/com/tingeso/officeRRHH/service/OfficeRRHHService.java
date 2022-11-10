@@ -135,7 +135,7 @@ public class OfficeRRHHService {
     return (dia == null || dia.getLate_minutes() > 70);
   }
   public Date get_start_date() throws ParseException {
-    Date date = restTemplate.getForObject("http://timestamp-service/timestamp/date", Date.class);
+    Date date = restTemplate.getForObject("http://timestamp-service/timestamps/date", Date.class);
     
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
     System.out.println(sdf.format(date));
@@ -147,7 +147,7 @@ public class OfficeRRHHService {
     return employee;
   }
   public TimeStamp get_dia_trabajado(String rut, String date){
-    TimeStamp timeStamp = restTemplate.getForObject("http://timestamp-service/timestamp/byemployee/" + rut +"/"+ date,TimeStamp.class);
+    TimeStamp timeStamp = restTemplate.getForObject("http://timestamp-service/timestamps/byemployee/" + rut +"/"+ date,TimeStamp.class);
     System.out.println(timeStamp);
     return timeStamp;
   }

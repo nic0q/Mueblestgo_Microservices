@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/officeRRHH")
+@RequestMapping("/salaries")
 public class OfficeRRHHController {
 
   @Autowired
@@ -42,13 +42,13 @@ public class OfficeRRHHController {
     if (justificative == null) return ResponseEntity.notFound().build();
     return ResponseEntity.ok(justificative);
   }
-  @GetMapping("/timestamp/{rut}/{date}")
+  @GetMapping("/timestamps/{rut}/{date}")
   public ResponseEntity <TimeStamp> getTResponseEntity(@PathVariable("rut") String rut, @PathVariable("date") String date) {
     TimeStamp timeStamp = officeRRHHService.get_dia_trabajado(rut, date);
     if (timeStamp == null) return ResponseEntity.notFound().build();
     return ResponseEntity.ok(timeStamp);
   }
-  @GetMapping("/timestamp/date")
+  @GetMapping("/timestamps/date")
   public Date getDate() throws ParseException {
     return officeRRHHService.get_start_date();
   }

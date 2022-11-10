@@ -13,12 +13,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "marcas_reloj")
+@Table(name = "timestamp")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class MarcasReloj {
+public class Timestamp {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
@@ -28,7 +28,7 @@ public class MarcasReloj {
     private Integer extra_hours;
     private Integer late_minutes;
 
-    public MarcasReloj(String rut_employee, Date date, Integer extra_hours, Integer late_minutes) {
+    public Timestamp(String rut_employee, Date date, Integer extra_hours, Integer late_minutes) {
         this.rut_employee = rut_employee;
         this.date = date;
         this.extra_hours = extra_hours;
