@@ -14,8 +14,7 @@ spring:
       discovery:
         locator:
           enabled: true
-      default-filters:
-        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_UNIQUE
+      default-filters: TokenRelay
       globalcors:
         cors-configurations:
           '[/**]':

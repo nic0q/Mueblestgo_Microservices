@@ -5,3 +5,16 @@ spring:
     config:
       enabled: true
       uri: http://localhost:8081
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8888/realms/web
+        registration:
+          spring-cloud-gateway-client:
+            client-id: spring-key-2
+            client-secret: 1ceLqtLAnguXnNnHZTCdMlFUIrYZtSei
+            provider: keycloak
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:8080/login/oauth2/code/spring-key-2
