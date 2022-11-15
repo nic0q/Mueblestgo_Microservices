@@ -24,13 +24,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.tingeso.timestamp.entity.Timestamp;
-import com.tingeso.timestamp.repository.TimestampRepository;
+import com.tingeso.timestamp.repository.TimeStampRepository;
 
 @Service
 public class TimeStampService {
 
   @Autowired
-  private TimestampRepository timeStampRepository;
+  private TimeStampRepository timeStampRepository;
 
   private static final String ENTRY_TIME = "08:00";
   private static final String EXIT_TIME = "18:00";

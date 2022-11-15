@@ -1,0 +1,8 @@
+{
+  "realm": "web",
+  "auth-server-url": "http://localhost:8888/",
+  "ssl-required": "external",
+  "resource": "spring-key",
+  "public-client": true,
+  "confidential-port": 0
+}

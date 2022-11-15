@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/timestamps")
-public class TimestampController {
+public class TimeStampController {
     @Autowired
     private TimeStampService timestampService;
 

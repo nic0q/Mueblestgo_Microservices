@@ -17,9 +17,11 @@ spring:
     show-sql: true
     hibernate:
       dialect: MySQL8Dialect
-      ddl-auto: create
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: http://localhost:8888/realms/web
+      ddl-auto: update
+keycloak:
+  realm: web
+  auth-server-url: http://localhost:8888
+  resource: spring-key
+  public-client: true
+  ssl-required: external
+  bearer-only: true

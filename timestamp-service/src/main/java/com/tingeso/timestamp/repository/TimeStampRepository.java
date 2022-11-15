@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.tingeso.timestamp.entity.Timestamp;
 
 @Repository
-public interface TimestampRepository extends JpaRepository<Timestamp, Integer>{
+public interface TimeStampRepository extends JpaRepository<Timestamp, Integer>{
     @Query(value="SELECT `date` FROM timestamp LIMIT 1;", nativeQuery=true)
     Date getDate();
     @Query(value="SELECT * FROM timestamp WHERE rut_employee = :rut AND `date` = :datee", nativeQuery=true)

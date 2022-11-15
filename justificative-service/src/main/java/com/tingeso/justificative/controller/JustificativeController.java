@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import javax.annotation.security.RolesAllowed;
 
 @RestController
 @RequestMapping("/justificatives")
@@ -27,8 +28,15 @@ public class JustificativeController {
     if (Justificatives.isEmpty()) return ResponseEntity.noContent().build();
     return ResponseEntity.ok(Justificatives);
   }
-
+  @PostMapping
+  public ResponseEntity<Justificative> save(
+    @RequestBody Justificative justificative
+  ) {
+    Justificative JustificativeNew = justificativeService.save(justificative);
+    return ResponseEntity.ok(JustificativeNew);
+  }
   @GetMapping("/{id}")
+  @RolesAllowed("ADMIN")
   public ResponseEntity<Justificative> getById(@PathVariable("id") Integer id) {
     Justificative Justificative = justificativeService.getJustificativeById(id);
     if (Justificative == null) return ResponseEntity.notFound().build();
@@ -43,11 +51,5 @@ public class JustificativeController {
     return ResponseEntity.ok(justificatives);
   }
 
-  @PostMapping
-  public ResponseEntity<Justificative> save(
-    @RequestBody Justificative justificative
-  ) {
-    Justificative JustificativeNew = justificativeService.save(justificative);
-    return ResponseEntity.ok(JustificativeNew);
-  }
+
 }
