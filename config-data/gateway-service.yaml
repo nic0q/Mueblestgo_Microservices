@@ -7,7 +7,7 @@ eureka:
     service-url:
       default-zone: http://${EUREKA:localhost}:8761/eureka
   instance:
-    hostname: ${GATEWAY:localhost}
+    hostname: ${EUREKA:localhost}
 spring:
   cloud:
     gateway:
@@ -47,8 +47,4 @@ spring:
         - id: salarie-service
           uri: lb://salarie-service
           predicates:
-            - Path=/salaries/**            
-        - id: user-service
-          uri: lb://user-service
-          predicates:
-            - Path=/users/**
+            - Path=/salaries/**
