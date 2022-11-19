@@ -6,7 +6,7 @@ spring:
       server:
         git:
           default-label: main
-          uri: git@github.com:nic0/Mueblestgo_microservices.git
+          uri: https://github.com/nic0q/Mueblestgo_microservices
           search-paths: config-data
   application:
     name: config-service

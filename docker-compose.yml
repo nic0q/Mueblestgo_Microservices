@@ -27,6 +27,25 @@ services:
       - HOSTNAME=config-service
     ports:
       - 8761:8761
+  employee-service:
+    image: 'inse1n/employee-service'
+    restart: on-failure
+    container_name: employee-service
+    depends_on:
+      - db-employee
+      - eureka-service
+      - config-service
+    environment:
+      - DB_HOSTNAME=db-employee
+      - DB_PORT=3306
+      - DB_NAME=employee
+      - DB_USR=root
+      - DB_PSW=root
+      - EUREKA=eureka-service
+      - eureka.client.serviceUrl.defaultZone=http://eureka-service:8761/eureka
+      - HOSTNAME=config-service
+    ports:
+      - 8082:8082
   gateway-service:
     image: 'inse1n/gateway-service'
     restart: on-failure
@@ -37,29 +56,10 @@ services:
     environment:
       - EUREKA=eureka-service
       - HOSTNAME=config-service
+      - GATEWAY=gateway-service
       - eureka.client.serviceUrl.defaultZone=http://eureka-service:8761/eureka
     ports:
-      - 8080:8080
-    links:
-      - eureka-service
-  employee-service:
-    image: 'inse1n/employee-service'
-    restart: on-failure
-    container_name: employee-service
-    depends_on:
-      - db-employee
-      - eureka-service
-      - gateway-service
-    environment:
-      - DB_HOSTNAME=db-employee
-      - DB_PORT=3306
-      - DB_NAME=employee
-      - DB_USR=root
-      - DB_PSW=root      
-      - eureka.client.serviceUrl.defaultZone=http://eureka-service:8761/eureka
-      - HOSTNAME=config-service
-    ports:
-      - 8082:8082
+      - 8080:8080      
   # db-timestamp:
   #   image: 'mysql'
   #   restart: always
