@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import javax.annotation.security.RolesAllowed;
 
 @RestController
@@ -23,20 +24,20 @@ public class JustificativeController {
   JustificativeService justificativeService;
 
   @GetMapping
+  @RolesAllowed("admin")
   public ResponseEntity<List<Justificative>> getAll() {
     List<Justificative> Justificatives = justificativeService.getAll();
     if (Justificatives.isEmpty()) return ResponseEntity.noContent().build();
     return ResponseEntity.ok(Justificatives);
   }
   @PostMapping
-  public ResponseEntity<Justificative> save(
-    @RequestBody Justificative justificative
-  ) {
+  @RolesAllowed("admin")
+  public ResponseEntity<Justificative> save(@RequestBody Justificative justificative) {
     Justificative JustificativeNew = justificativeService.save(justificative);
     return ResponseEntity.ok(JustificativeNew);
   }
   @GetMapping("/{id}")
-  @RolesAllowed("ADMIN")
+  @RolesAllowed("admin")
   public ResponseEntity<Justificative> getById(@PathVariable("id") Integer id) {
     Justificative Justificative = justificativeService.getJustificativeById(id);
     if (Justificative == null) return ResponseEntity.notFound().build();
@@ -44,12 +45,9 @@ public class JustificativeController {
   }
 
   @GetMapping("/byemployee/{rut}/{date}")
-  public ResponseEntity<Justificative> getByRut(
-    @PathVariable("rut") String rut, @PathVariable("date") String date
-  ) throws ParseException {
+  @RolesAllowed("admin")
+  public ResponseEntity<Justificative> getByRut(@PathVariable("rut") String rut, @PathVariable("date") String date) throws ParseException {
     Justificative justificatives = justificativeService.getJustificativeByRut(rut,date);
     return ResponseEntity.ok(justificatives);
   }
-
-
 }

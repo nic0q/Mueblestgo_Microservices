@@ -20,8 +20,9 @@ spring:
       ddl-auto: update
 keycloak:
   realm: web
-  auth-server-url: http://localhost:8888
+  authServerUrl: http://localhost:8888
   resource: spring-key
-  public-client: true
-  ssl-required: external
-  bearer-only: true
+  publicClient: true
+  sslRequired: external
+  bearerOnly: true
+  useResourceRoleMappings: true
