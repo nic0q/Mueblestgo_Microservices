@@ -1,0 +1,24 @@
+version: '3.8'
+services:
+  config-service:
+    image: 'inse1n/config-service'
+    restart: always
+    container_name: config-service
+    ports:
+      - 8081:8081
+  eureka-service:
+    image: 'inse1n/eureka-service'
+    restart: always
+    container_name: eureka-service
+    depends_on:
+      - config-service
+    links:
+      - config-service
+    environment:
+      - HOSTNAME=config-service
+    ports:
+      - 8761:8761        
+networks:
+  default:
+    name: my-net
+    external: true

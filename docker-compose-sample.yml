@@ -1,5 +1,11 @@
 version: '3.8'
 services:
+  config-service:
+    image: 'inse1n/config-service'
+    restart: always
+    container_name: config-service
+    ports:
+      - 8081:8081
   db-employee:
     image: 'mysql'
     restart: always
@@ -8,16 +14,10 @@ services:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_PASSWORD=root
     ports:
-      - 3306:3306
-  config-service:
-    image: 'inse1n/config-service'
-    restart: on-failure
-    container_name: config-service
-    ports:
-      - 8081:8081
+      - 3306:3306      
   eureka-service:
     image: 'inse1n/eureka-service'
-    restart: on-failure
+    restart: always
     container_name: eureka-service
     depends_on:
       - config-service
@@ -29,7 +29,7 @@ services:
       - 8761:8761
   employee-service:
     image: 'inse1n/employee-service'
-    restart: on-failure
+    restart: always
     container_name: employee-service
     depends_on:
       - db-employee
@@ -48,17 +48,23 @@ services:
       - 8082:8082
   gateway-service:
     image: 'inse1n/gateway-service'
-    restart: on-failure
+    restart: always
     container_name: gateway-service
     depends_on:
       - config-service
       - eureka-service
+      - employee-service
+      - db-employee
     environment:
       - EUREKA=eureka-service
       - HOSTNAME=config-service
       - eureka.client.serviceUrl.defaultZone=http://eureka-service:8761/eureka
+      - spring.cloud.config.uri=http://config-service:8081
+      - spring.config.import=optional:configserver:http://config-service:8081
     ports:
-      - 8080:8080      
+      - 8080:8080
+    expose:
+      - "8080"
   # db-timestamp:
   #   image: 'mysql'
   #   restart: always

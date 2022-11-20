@@ -10,14 +10,12 @@ export default function JustificativeForm() {
     console.log(inputs)
     setInputs(values => ({...values, [name]: value}))
   }
-
   const handleSubmit = (event) => {
     event.preventDefault();
     axios.post('http://localhost:8080/justificatives', inputs).then(res => {
       console.log(res);
     });
   }
-
   return (
     <form onSubmit={handleSubmit} className="container">
       <div className="form-group">

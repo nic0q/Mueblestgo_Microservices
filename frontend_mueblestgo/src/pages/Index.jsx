@@ -19,14 +19,14 @@ export default function Index() {
       console.log(response.data);
     })
   }
-  const getMovie = async (id, token) => {
+  const get = async (id, token) => {
     return axios.get(`/justificatives/${id}`, {
       headers: { 'Authorization': `Bearer ${token}` }
     }).then(response => {
       console.log(response.data);
     })
   }
-  const postMovie = async (token) => {
+  const post = async (token) => {
     return axios.post(`/justificatives`,{
       "rut_employee": "20457671-9",
       "date": "2022-02-02"
@@ -51,8 +51,8 @@ export default function Index() {
         :
         <button  onClick={() => keycloak.login()}>Login</button>
       }
-      <button onClick={()=>getMovie(1, keycloak.token)}>GET 1 WEA</button>
-      <button onClick={()=>getTodo(keycloak.token)}>GET WEAS</button>
-      <button onClick={()=>postMovie(keycloak.token)}>POST WEAS</button>
+      <button onClick={()=>get(1,keycloak.token)}>GET 1</button>
+      <button onClick={()=>getTodo(keycloak.token)}>GET TODO</button>
+      <button onClick={()=>post(keycloak.token)}>POST</button>
     </div>)
 }
