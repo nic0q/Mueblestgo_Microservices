@@ -5,8 +5,8 @@ docker network create --driver bridge my-net
 
 ### Levantar contenedores
 
--> Configurations
+#### Configurations
 docker-compose -f docker-compose-config.yml up
 
--> Services
+#### Services
 docker-compose -f docker-compose-services.yml up
