@@ -17,8 +17,4 @@ services:
     environment:
       - HOSTNAME=config-service
     ports:
-      - 8761:8761        
-networks:
-  default:
-    name: my-net
-    external: true
+      - 8761:8761

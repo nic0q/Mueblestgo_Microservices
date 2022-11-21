@@ -1,7 +1,4 @@
-Commands
-
-### Create network
-docker network create --driver bridge my-net
+## Commands
 
 ### Levantar contenedores
 
