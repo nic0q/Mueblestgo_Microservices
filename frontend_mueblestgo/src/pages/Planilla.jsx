@@ -7,8 +7,13 @@ export default function Planilla() {
   const [sueldos, setSueldos] = useState([]);
   useEffect(() => {
     getSueldos();
-  }, []);
-
+  },);
+  const calcular = async () => {
+    axios.get("/officerrhh/calcular").then((response) => {
+      getSueldos()
+      return response.data;
+    });
+  }
   const getSueldos = async () => {
     axios.get("/salaries").then((response) => {
       console.log(response.data);
@@ -16,7 +21,11 @@ export default function Planilla() {
       return response.data;
     });
   }
-  return (<table className="tabla table table-dark text-center rounded">
+  return (
+    <div>
+
+    <button class="btn btn-primary" onClick={()=>calcular()}>Calcular</button>
+  <table className="tabla table table-dark text-center rounded">
     <thead>
       <tr>
           <th> RUT </th>
@@ -51,5 +60,5 @@ export default function Planilla() {
                                         />)}
       </tbody>
     
-  </table>);
+  </table></div>);
 }

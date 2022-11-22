@@ -1,6 +1,6 @@
 {
   "realm": "web",
-  "auth-server-url": "http://localhost:8888/",
+  "auth-server-url": "http://host.docker.internal:9000/",
   "ssl-required": "external",
   "resource": "spring-key",
   "public-client": true,

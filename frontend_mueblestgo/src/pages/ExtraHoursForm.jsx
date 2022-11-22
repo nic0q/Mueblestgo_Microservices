@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 export default function JustificativeForm() {
   const [inputs, setInputs] = useState({});
+  const [forbidden, setForbidden] = useState(false);
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -13,13 +14,20 @@ export default function JustificativeForm() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.post('http://localhost:8080/extra-hours', inputs).then(res => {
+    axios.post('/extra-hours/', inputs).then(res => {
       console.log(res);
-    });
+    if(res.status === 403){
+      setForbidden(true);
+    }
+    else{
+      setForbidden(false);
+    }
+  });
   }
 
   return (
     <form onSubmit={handleSubmit} className="container">
+      <h3>Ingresar Horas Extra</h3>
       <div className="form-group">
         <label>Ingrese el rut del empleado:
         <input 
@@ -56,6 +64,7 @@ export default function JustificativeForm() {
       </div>
       <br></br>
       <input type="submit" className="btn btn-primary"/>
+      {forbidden && <div class="alert alert-danger" role="alert"> Usted no cuenta con privilegios de administrador para realizar esta acción </div>}
     </form>
   )
 }

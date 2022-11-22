@@ -7,7 +7,7 @@ spring:
   cloud:
     config:
       enabled: true
-      uri: http://${HOSTNAME:localhost}:8081
+      uri: http://${HOSTNAME:localhost}:8081  
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://${DB_HOSTNAME:localhost}:${DB_PORT:3310}/${DB_NAME:salarie}?autorReconnect=true&allowPublicKeyRetrieval=true&useSSL=false

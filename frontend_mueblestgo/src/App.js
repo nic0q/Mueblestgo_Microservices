@@ -7,6 +7,7 @@ import Index from './pages/Index';
 import UploadFile from './pages/UploadFile';
 import JustificativeForm from './pages/JustificativeForm';
 import ExtraHoursForm from "./pages/ExtraHoursForm"
+import PrivateRoute from './components/PrivateRoute';
 import Planilla from "./pages/Planilla"
 import { ReactKeycloakProvider } from '@react-keycloak/web'
 
@@ -16,11 +17,11 @@ function App() {
     <Layout>
       <Container>
         <Routes>
-          <Route path='/' element={<Index/>} exact/>
-          <Route path='/upload' element={<UploadFile/>} exact/>
-          <Route path='/justificatives' element={<JustificativeForm/>} exact/>
+          <Route path="/" element={<PrivateRoute><Index/></PrivateRoute>}/>
+          <Route path='/upload' element={<PrivateRoute><UploadFile/></PrivateRoute>} exact/>
+          <Route path='/justificatives' element={<PrivateRoute><JustificativeForm/></PrivateRoute>} exact/>
           <Route path='/extra-hours' element={<ExtraHoursForm/>} exact/>
-          <Route path='/planilla' element={<Planilla/>} exact/>
+          <Route path='/planilla' element={<PrivateRoute><Planilla/></PrivateRoute>} exact/>
         </Routes>
       </Container>
     </Layout>

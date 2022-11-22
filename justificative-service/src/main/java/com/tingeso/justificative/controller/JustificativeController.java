@@ -45,7 +45,6 @@ public class JustificativeController {
   }
 
   @GetMapping("/byemployee/{rut}/{date}")
-  @RolesAllowed("admin")
   public ResponseEntity<Justificative> getByRut(@PathVariable("rut") String rut, @PathVariable("date") String date) throws ParseException {
     Justificative justificatives = justificativeService.getJustificativeByRut(rut,date);
     return ResponseEntity.ok(justificatives);

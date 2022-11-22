@@ -20,9 +20,8 @@ spring:
       ddl-auto: update
 keycloak:
   realm: web
-  authServerUrl: http://${KEYCLOAK:localhost}:8888
+  authServerUrl: http://${KEYCLOAK_HOST:localhost}:${KEYCLOAK_PORT:9000}
   resource: spring-key
   publicClient: true
   sslRequired: external
   bearerOnly: true
-  useResourceRoleMappings: true
