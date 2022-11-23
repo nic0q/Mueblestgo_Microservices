@@ -26,35 +26,6 @@ public class OfficeRRHHController {
     if (Salarie.isEmpty()) return ResponseEntity.noContent().build();
     return ResponseEntity.ok(Salarie);
   }
-
-  // @GetMapping("/employees/{rut}")
-  // public ResponseEntity <Employee> getEmployee(@PathVariable("rut") String rut) {
-  //   Employee employee = officeRRHHService.getEmployeeByRut(rut);
-  //   if (employee == null) return ResponseEntity.notFound().build();
-  //   return ResponseEntity.ok(employee);
-  // }
-  // @GetMapping("/extra-hours/{rut}")
-  // public ResponseEntity <List<ExtraHours>> getExtraHours(@PathVariable("rut") String rut)throws IOException {
-  //   List<ExtraHours> extraHours = officeRRHHService.get_extra_hours(rut);
-  //   if (extraHours == null) return ResponseEntity.notFound().build();
-  //   return ResponseEntity.ok(extraHours);
-  // }
-  // @GetMapping("/justificatives/{rut}/{date}")
-  // public ResponseEntity <Justificative> getJustificatives(@PathVariable("rut") String rut, @PathVariable("date") String date) {
-  //   Justificative justificative = officeRRHHService.get_justificative(rut, date);
-  //   if (justificative == null) return ResponseEntity.notFound().build();
-  //   return ResponseEntity.ok(justificative);
-  // }
-  // @GetMapping("/timestamps/{rut}/{date}")
-  // public ResponseEntity <TimeStamp> getTResponseEntity(@PathVariable("rut") String rut, @PathVariable("date") String date) {
-  //   TimeStamp timeStamp = officeRRHHService.get_dia_trabajado(rut, date);
-  //   if (timeStamp == null) return ResponseEntity.notFound().build();
-  //   return ResponseEntity.ok(timeStamp);
-  // }
-  // @GetMapping("/timestamps/date")
-  // public Date getDate() throws ParseException {
-  //   return officeRRHHService.get_start_date();
-  // }
   @GetMapping("/calcular")
   public ResponseEntity <List<Salarie>> getSalaries() throws ParseException, IOException {
     return ResponseEntity.ok(officeRRHHService.get_salaries());
