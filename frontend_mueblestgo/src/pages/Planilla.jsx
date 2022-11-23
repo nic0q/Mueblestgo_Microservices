@@ -1,13 +1,10 @@
 import React from "react";
 import SalaryRow from "../components/SalaryRow";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export default function Planilla() {
   const [sueldos, setSueldos] = useState([]);
-  useEffect(() => {
-    getSueldos();
-  },);
   const calcular = async () => {
     axios.get("/officerrhh/calcular").then((response) => {
       getSueldos()

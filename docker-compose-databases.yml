@@ -1,23 +1,5 @@
 version: '3.8'
 services:
-  config-service:
-    image: 'inse1n/config-service'
-    restart: always
-    container_name: config-service
-    ports:
-      - 8081:8081
-  eureka-service:
-    image: 'inse1n/eureka-service'
-    restart: always
-    container_name: eureka-service
-    depends_on:
-      - config-service
-    links:
-      - config-service
-    environment:
-      - HOSTNAME=config-service
-    ports:
-      - 8761:8761
   db-employee:
     image: 'mysql'
     restart: always
@@ -27,62 +9,15 @@ services:
       - MYSQL_PASSWORD=root
     ports:
       - 3306:3306
-
-  employee-service:
-    image: 'inse1n/employee-service'
-    restart: always
-    container_name: employee-service
-    depends_on:
-      - eureka-service
-      - config-service
-      - db-employee
-    links:
-      - eureka-service
-      - config-service    
-    environment:
-      - DB_HOSTNAME=db-employee
-      - DB_PORT=3306
-      - DB_NAME=employee
-      - DB_USR=root
-      - DB_PSW=root
-      - EUREKA=eureka-service
-      - eureka.client.serviceUrl.defaultZone=http://eureka-service:8761/eureka
-      - HOSTNAME=config-service
-    ports:
-      - 8082:8082
-
-  db-timestamp:
+  db-marcas_reloj:
     image: 'mysql'
     restart: always
     environment:
-      - MYSQL_DATABASE=timestamp
+      - MYSQL_DATABASE=marcas_reloj
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_PASSWORD=root
     ports:
-      - 3307:3307
-  timestamp-service:
-    image: 'inse1n/timestamp-service'
-    restart: on-failure
-    container_name: timestamp-service
-    depends_on:
-      - db-timestamp
-      - eureka-service
-      - config-service
-    links:
-      - eureka-service
-      - config-service    
-    environment:
-      - DB_HOSTNAME=db-timestamp
-      - DB_PORT=3306
-      - DB_NAME=timestamp
-      - DB_USR=root
-      - DB_PSW=root
-      - EUREKA=eureka-service
-      - eureka.client.serviceUrl.defaultZone=http://eureka-service:8761/eureka
-      - HOSTNAME=config-service
-    ports:
-      - 8083:8083
-
+      - 3307:3306
   db-justificative:
     image: 'mysql'
     restart: always
@@ -91,29 +26,7 @@ services:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_PASSWORD=root
     ports:
-      - 3308:3308
-  justificative-service:
-    image: 'inse1n/justificative-service'
-    restart: on-failure
-    container_name: justificative-service
-    depends_on:
-      - db-justificative
-      - eureka-service
-      - config-service
-    links:
-      - eureka-service
-      - config-service      
-    environment:
-      - DB_HOSTNAME=db-justificative
-      - DB_PORT=3306
-      - DB_NAME=justificative
-      - DB_USR=root
-      - DB_PSW=root
-      - EUREKA=eureka-service
-      - eureka.client.serviceUrl.defaultZone=http://eureka-service:8761/eureka
-      - HOSTNAME=config-service
-    ports:
-      - 8084:8084
+      - 3308:3306
   db-extra_hours:
     image: 'mysql'
     restart: always
@@ -122,131 +35,13 @@ services:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_PASSWORD=root
     ports:
-      - 3309:3309
-  extra-hours-service:
-    image: 'inse1n/extra-hours-service'
-    restart: on-failure
-    container_name: extra-hours-service
-    depends_on:
-      - db-extra_hours
-      - eureka-service
-      - config-service
-    links:
-      - eureka-service
-      - config-service    
-    environment:
-      - DB_HOSTNAME=db-extra_hours
-      - DB_PORT=3306
-      - DB_NAME=extra_hours
-      - DB_USR=root
-      - DB_PSW=root
-      - EUREKA=eureka-service
-      - eureka.client.serviceUrl.defaultZone=http://eureka-service:8761/eureka
-      - HOSTNAME=config-service                
-    ports:
-      - 8085:8085
-
-  db-salarie:
+      - 3309:3306
+  db-planilla_sueldos:
     image: 'mysql'
     restart: always
     environment:
-      - MYSQL_DATABASE=salarie
+      - MYSQL_DATABASE=planilla_sueldos
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_PASSWORD=root
-      - EUREKA=eureka-service
-      - eureka.client.serviceUrl.defaultZone=http://eureka-service:8761/eureka
-      - HOSTNAME=config-service                
     ports:
-      - 3310:3310
-  officerrhh-service:
-    image: 'inse1n/officerrhh-service'
-    restart: on-failure
-    container_name: officerrhh-service
-    depends_on:
-      - db-salarie
-      - eureka-service
-      - config-service
-    links:
-      - eureka-service
-      - config-service          
-    environment:
-      - DB_HOSTNAME=db-salarie
-      - DB_PORT=3306
-      - DB_NAME=salarie
-      - DB_USR=root
-      - DB_PSW=root
-      - EUREKA=eureka-service
-      - eureka.client.serviceUrl.defaultZone=http://eureka-service:8761/eureka
-      - HOSTNAME=config-service            
-    ports:
-      - 8086:8086
-  salarie-service:
-    image: 'inse1n/salarie-service'
-    restart: on-failure
-    container_name: salarie-service
-    depends_on:    
-      - eureka-service
-      - config-service    
-    links:
-      - eureka-service
-      - config-service        
-    ports:
-      - 8087:8087
-    environment:
-      - EUREKA=eureka-service
-      - eureka.client.serviceUrl.defaultZone=http://eureka-service:8761/eureka
-      - HOSTNAME=config-service                
-
-  gateway-service:
-    image: 'inse1n/gateway-service'
-    restart: always
-    container_name: gateway-service
-    environment:
-      - EUREKA=eureka-service
-      - HOSTNAME=config-service
-      - eureka.client.serviceUrl.defaultZone=http://eureka-service:8761/eureka
-      - spring.cloud.config.uri=http://config-service:8081
-      - spring.config.import=optional:configserver:http://config-service:8081
-    ports:
-      - 8080:8080
-    expose:
-      - "8080"
-    links:
-      - eureka-service
-      - config-service          
-    depends_on:
-      - eureka-service
-      - config-service
-      - employee-service
-      - justificative-service
-      - extra-hours-service
-      - timestamp-service
-      - officerrhh-service
-  frontend:
-    container_name: frontend
-    image: 'inse1n/frontend'
-    restart: on-failure
-    ports:
-      - "3000:3000"
-    depends_on:
-      - employee-service
-      - timestamp-service
-      - justificative-service
-      - salarie-service
-      - extra-hours-service
-      - officerrhh-service
-      - gateway-service
-    deploy:
-      restart_policy:
-        condition: on-failure
-  keycloak:
-      container_name: keycloak
-      image: quay.io/keycloak/keycloak:20.0.1
-      command: ["start-dev", "--http-port=9000"]
-      ports:
-        - "9000:9000"
-      environment:
-        - KEYCLOAK_USER=admin
-        - KEYCLOAK_PASSWORD=admin
-        - KEYCLOAK_ADMIN=admin
-        - KEYCLOAK_ADMIN_PASSWORD=admin
+      - 3310:3306
