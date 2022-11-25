@@ -6,7 +6,7 @@ import { useState } from "react";
 export default function Planilla() {
   const [sueldos, setSueldos] = useState([]);
   const calcular = async () => {
-    axios.get("/officerrhh/calcular").then((response) => {
+    axios.get("/officeRRHH/calcular").then((response) => {
       getSueldos()
       return response.data;
     });

@@ -17,11 +17,11 @@ function App() {
     <Layout>
       <Container>
         <Routes>
-          <Route path="/" element={<PrivateRoute><Index/></PrivateRoute>}/>
-          <Route path='/upload' element={<PrivateRoute><UploadFile/></PrivateRoute>} exact/>
+          <Route path="/" element={<Index/>}/>
+          <Route path='/upload' element={<UploadFile/>} exact/>
           <Route path='/justificatives' element={<PrivateRoute><JustificativeForm/></PrivateRoute>} exact/>
           <Route path='/extra-hours' element={<ExtraHoursForm/>} exact/>
-          <Route path='/planilla' element={<PrivateRoute><Planilla/></PrivateRoute>} exact/>
+          <Route path='/planilla' element={<Planilla/>} exact/>
         </Routes>
       </Container>
     </Layout>
